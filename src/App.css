@@ -20,13 +20,99 @@
   gap: 32px;
 }
 
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
 .main-content h1 {
   margin: 0 0 8px 0;
 }
 
-.main-content > p {
+.main-content p {
   color: var(--text);
   margin-top: 0;
+}
+
+/* Scoreboard Styles */
+.scoreboard {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.scoreboard-stats {
+  display: flex;
+  gap: 16px;
+}
+
+.stat-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 24px;
+  border-radius: 8px;
+  background: var(--bg);
+  min-width: 80px;
+}
+
+.stat-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-family: var(--heading);
+  font-weight: bold;
+  color: var(--text-h);
+}
+
+.stat-percentage {
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+.good-stat .stat-value, .good-stat .stat-percentage {
+  color: #10b981;
+}
+
+.bad-stat .stat-value, .bad-stat .stat-percentage {
+  color: #ef4444;
+}
+
+.total-stat .stat-value {
+  color: var(--accent);
+}
+
+.ratio-bar-container {
+  display: flex;
+  height: 8px;
+  width: 100%;
+  margin-top: 16px;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: var(--bg);
+}
+
+.ratio-bar-good {
+  height: 100%;
+  background-color: #10b981;
+  transition: width 0.3s ease;
+}
+
+.ratio-bar-bad {
+  height: 100%;
+  background-color: #ef4444;
+  transition: width 0.3s ease;
 }
 
 .controls {
@@ -121,6 +207,9 @@
   display: flex;
   flex-direction: column;
   background: var(--code-bg);
+  position: sticky;
+  top: 0;
+  height: 100svh;
 }
 
 @media (max-width: 1024px) {
@@ -129,6 +218,7 @@
     border-left: none;
     border-top: 1px solid var(--border);
     height: 400px;
+    position: static;
   }
 }
 

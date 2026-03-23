@@ -3,6 +3,7 @@ import './App.css'
 import { Controls } from './components/Controls'
 import { LatestResults } from './components/LatestResults'
 import { HistorySidebar } from './components/HistorySidebar'
+import { Scoreboard } from './components/Scoreboard'
 import type { RollResult, RollHistoryItem } from './types'
 
 function App() {
@@ -36,8 +37,13 @@ function App() {
   return (
     <div className="app-container">
       <main className="main-content">
-        <h1>RNJesus</h1>
-        <p>Will you get a good roll?</p>
+        <div className="header-container">
+          <div>
+            <h1>RNJesus</h1>
+            <p>Will you get a good roll?</p>
+          </div>
+          <Scoreboard history={history} />
+        </div>
         
         <Controls 
           probability={probability} 
