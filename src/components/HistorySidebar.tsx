@@ -22,7 +22,7 @@ export function HistorySidebar({ history, clearHistory }: HistorySidebarProps) {
                 {item.result}
               </div>
               <div style={{ minWidth: '48px', textAlign: 'right', fontWeight: 'bold' }}>
-                {item.rate} - {100 - item.rate} %
+                <span style={{ color: '#10b981' }}>{item.rate}</span> - <span style={{ color: 'red' }}>{100 - item.rate}</span> %
               </div>
             </div>
           ))
