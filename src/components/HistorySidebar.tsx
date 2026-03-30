@@ -17,8 +17,13 @@ export function HistorySidebar({ history, clearHistory }: HistorySidebarProps) {
           <p className="empty-history">No rolls yet.</p>
         ) : (
           history.map((item) => (
-            <div key={item.id} className={`history-item ${item.result === 'Good Roll' ? 'good-roll' : 'bad-roll'}`}>
-              {item.result}
+            <div key={item.id} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <div className={`history-item ${item.result === 'Good Roll' ? 'good-roll' : 'bad-roll'}`} style={{ flex: 1 }}>
+                {item.result}
+              </div>
+              <div style={{ minWidth: '48px', textAlign: 'right', fontWeight: 'bold' }}>
+                {item.rate} - {100 - item.rate} %
+              </div>
             </div>
           ))
         )}

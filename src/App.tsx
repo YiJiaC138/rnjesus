@@ -22,6 +22,7 @@ function App() {
       newHistoryItems.push({
         id: crypto.randomUUID(),
         result,
+        rate: probability,
       });
     }
 
