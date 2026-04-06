@@ -1,63 +1,27 @@
-import { useState } from 'react'
-import './App.css'
-import { Controls } from './components/Controls'
-import { LatestResults } from './components/LatestResults'
-import { HistorySidebar } from './components/HistorySidebar'
-import { Scoreboard } from './components/Scoreboard'
-import type { RollResult, RollHistoryItem } from './types'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import './App.css';
+import { Sidebar } from './components/Sidebar';
+import { Home } from './pages/Home';
+import { ToolOne } from './pages/ToolOne';
+import { ToolTwo } from './pages/ToolTwo';
+import { Settings } from './pages/Settings';
 
 function App() {
-  const [probability, setProbability] = useState<number>(50)
-  const [history, setHistory] = useState<RollHistoryItem[]>([])
-  const [latestRolls, setLatestRolls] = useState<RollResult[]>([])
-
-  const performRoll = (times: number) => {
-    const newRolls: RollResult[] = [];
-    const newHistoryItems: RollHistoryItem[] = [];
-
-    for (let i = 0; i < times; i++) {
-      const rollValue = Math.floor(Math.random() * 100);
-      const result: RollResult = rollValue < probability ? 'Good Roll' : 'Bad Roll';
-      newRolls.push(result);
-      newHistoryItems.push({
-        id: crypto.randomUUID(),
-        result,
-        rate: probability,
-      });
-    }
-
-    setLatestRolls(newRolls);
-    setHistory(prevHistory => [...newHistoryItems, ...prevHistory]);
-  };
-
-  const clearHistory = () => {
-    setHistory([]);
-    setLatestRolls([]);
-  };
-
   return (
-    <div className="app-container">
-      <main className="main-content">
-        <div className="header-container">
-          <div>
-            <h1>RNJesus</h1>
-            <p>Will you get a good roll?</p>
-          </div>
-          <Scoreboard history={history} />
+    <Router>
+      <div className="root-layout">
+        <Sidebar />
+        <div className="page-content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/tool-1" element={<ToolOne />} />
+            <Route path="/tool-2" element={<ToolTwo />} />
+            <Route path="/settings" element={<Settings />} />
+          </Routes>
         </div>
-        
-        <Controls 
-          probability={probability} 
-          setProbability={setProbability} 
-          performRoll={performRoll} 
-        />
-
-        <LatestResults latestRolls={latestRolls} />
-      </main>
-
-      <HistorySidebar history={history} clearHistory={clearHistory} />
-    </div>
-  )
+      </div>
+    </Router>
+  );
 }
 
-export default App
+export default App;

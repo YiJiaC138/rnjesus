@@ -1,3 +1,21 @@
+.root-layout {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.page-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  .root-layout {
+    flex-direction: column;
+  }
+}
+
 .app-container {
   display: flex;
   flex-direction: row;
