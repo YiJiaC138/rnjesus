@@ -16,10 +16,20 @@
   margin-bottom: 24px;
 }
 
+.sidebar-logo {
+  text-decoration: none;
+  display: block;
+}
+
+.sidebar-logo:hover h2 {
+  opacity: 0.8;
+}
+
 .sidebar-header h2 {
   margin: 0;
   font-family: var(--heading);
   color: var(--accent);
+  transition: opacity 0.2s ease;
 }
 
 .sidebar-links {
