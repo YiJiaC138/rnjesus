@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import '../components/Control.css';
+import '../components/Components.css';
 import { Controls } from '../components/Controls.tsx';
 import { LatestResults } from '../components/LatestResults.tsx';
 import { Scoreboard } from '../components/Scoreboard.tsx';

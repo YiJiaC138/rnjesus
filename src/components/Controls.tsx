@@ -1,4 +1,4 @@
-import type { ChangeEvent } from 'react';
+import { ProbabilitySlider } from './ProbabilitySlider';
 
 /*
 Component to control the number of rolls to perform based on input probability.
@@ -23,14 +23,7 @@ export function Controls({ probability, setProbability, performRoll }: ControlsP
         <span className="bad-text">Bad Roll: {100 - probability}%</span>
       </div>
       {/* We use a slider here to set the probability */}
-      <input 
-        type="range" 
-        min="0" 
-        max="100" 
-        value={probability} 
-        onChange={(e: ChangeEvent<HTMLInputElement>) => setProbability(Number(e.target.value))}
-        className="slider"
-      />
+      <ProbabilitySlider probability={probability} setProbability={setProbability} />
 
       <div className="action-buttons">
         <button onClick={() => performRoll(1)}>Roll 1x</button>
