@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import '../components/Control.css';
 import { Controls } from '../components/Controls.tsx';
 import { LatestResults } from '../components/LatestResults.tsx';
 import { Scoreboard } from '../components/Scoreboard.tsx';
@@ -9,7 +10,8 @@ export const Roller = () => {
   const [probability, setProbability] = useState<number>(50)
   const [history, setHistory] = useState<RollHistoryItem[]>([])
   const [latestRolls, setLatestRolls] = useState<RollResult[]>([])
-
+  
+  // Perform rolls under a fixed number of times
   const performRoll = (times: number) => {
     const newRolls: RollResult[] = [];
     const newHistoryItems: RollHistoryItem[] = [];
@@ -24,11 +26,12 @@ export const Roller = () => {
         rate: probability,
       });
     }
-
+    // Update the latest rolls and history
     setLatestRolls(newRolls);
     setHistory(prevHistory => [...newHistoryItems, ...prevHistory]);
   };
 
+  // Clear the history and reset everything
   const clearHistory = () => {
     setHistory([]);
     setLatestRolls([]);

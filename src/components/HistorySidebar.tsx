@@ -1,5 +1,10 @@
 import type { RollHistoryItem } from '../types';
 
+/*
+HistorySidebar component for the Roller page.
+Displays the history of rolls and allows the user to clear the history.
+*/
+
 export interface HistorySidebarProps {
   history: RollHistoryItem[];
   clearHistory: () => void;

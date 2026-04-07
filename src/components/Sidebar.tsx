@@ -1,6 +1,11 @@
 import { NavLink, Link } from 'react-router-dom';
 import './Sidebar.css';
 
+/*
+Sidebar component for the app.
+Displays the logo and the links to the pages.
+*/
+
 export const Sidebar = () => {
   return (
     <nav className="sidebar">

@@ -1,5 +1,10 @@
 import type { RollHistoryItem } from '../types';
 
+/*
+Scoreboard for the Roller page.
+Takes account for number of good and bad rolls and displays the percentage of good and bad rolls.
+*/
+
 export interface ScoreboardProps {
   history: RollHistoryItem[];
 }
