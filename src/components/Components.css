@@ -108,6 +108,34 @@
   cursor: pointer;
 }
 
+.slider-locked {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.slider-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.lock-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+
+
 .action-buttons {
   display: flex;
   gap: 16px;
