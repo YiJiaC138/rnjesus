@@ -1,4 +1,4 @@
-import { MultipleScroller } from '../components/MultipleScroller.tsx';
+import { MultipleScroller } from '../components/Sliders/MultipleSlider.tsx';
 import { useState } from 'react';
 
 

@@ -88,7 +88,7 @@ export function MultipleScroller({ probabilities, setProbabilities, labels }: Mu
       {probabilities.map((prob, index) => (
         <div key={index} className="slider-group">
           <div className="probability-display">
-            <span>{labels?.[index] || `Option ${index + 1}`}: {prob}%</span>
+            <span>{labels?.[index] || `Option ${index + 1}`}: {prob.toFixed(1)}%</span>
           </div>
           <div className="slider-container">
             <input

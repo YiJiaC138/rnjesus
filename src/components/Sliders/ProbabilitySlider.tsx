@@ -16,8 +16,9 @@ export function ProbabilitySlider({ probability, setProbability }: ProbabilitySl
       type="range" 
       min="0" 
       max="100" 
+      step="0.1"
       value={probability} 
-      onChange={(e: ChangeEvent<HTMLInputElement>) => setProbability(Number(e.target.value))}
+      onChange={(e: ChangeEvent<HTMLInputElement>) => setProbability(parseFloat(e.target.value))}
       className="slider"
     />
   );

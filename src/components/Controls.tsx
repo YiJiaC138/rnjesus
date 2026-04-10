@@ -1,4 +1,4 @@
-import { ProbabilitySlider } from './ProbabilitySlider';
+import { ProbabilitySlider } from './Sliders/ProbabilitySlider';
 
 /*
 Component to control the number of rolls to perform based on input probability.
@@ -19,8 +19,8 @@ export function Controls({ probability, setProbability, performRoll }: ControlsP
   return (
     <div className="controls">
       <div className="probability-display">
-        <span className="good-text">Good Roll: {probability}%</span>
-        <span className="bad-text">Bad Roll: {100 - probability}%</span>
+        <span className="good-text">Good Roll: {probability.toFixed(1)}%</span>
+        <span className="bad-text">Bad Roll: {(100 - probability).toFixed(1)}%</span>
       </div>
       {/* We use a slider here to set the probability */}
       <ProbabilitySlider probability={probability} setProbability={setProbability} />

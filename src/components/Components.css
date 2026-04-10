@@ -76,6 +76,30 @@
   transition: width 0.3s ease;
 }
 
+.scorecounter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--heading);
+  font-weight: bold;
+  font-size: 20px;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  padding: 16px;
+  border-radius: 12px;
+}
+
+.scorecounter-value {
+
+}
+
+.scorecounter-value-text {
+  font-size: 75px;
+  font-family: var(--heading);
+  font-weight: bold;
+  color: var(--text-h);
+}
+
 .controls {
   background: var(--code-bg);
   border: 1px solid var(--border);
