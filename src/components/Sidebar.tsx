@@ -33,10 +33,10 @@ export const Sidebar = () => {
         </li>
         <li>
           <NavLink 
-            to="/tool-1" 
+            to="/roll-count" 
             className={({ isActive }) => isActive ? 'active' : ''}
           >
-            Tool 1
+            Roll Counter
           </NavLink>
         </li>
         <li>

@@ -90,7 +90,11 @@
 }
 
 .scorecounter-value {
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
 }
 
 .scorecounter-value-text {
@@ -98,6 +102,7 @@
   font-family: var(--heading);
   font-weight: bold;
   color: var(--text-h);
+  padding-top: 16px;
 }
 
 .controls {
@@ -205,13 +210,21 @@
   color: white;
   box-shadow: var(--shadow);
 }
-
+/* Classify the roll result based on the roll result type. */
 .good-roll {
   background-color: #10b981;
 }
 
 .bad-roll {
   background-color: #ef4444;
+}
+
+.neutral-roll {
+  background-color: #f59e0b;
+}
+
+.default-roll {
+  background-color: #6b7280;
 }
 
 .history-sidebar {

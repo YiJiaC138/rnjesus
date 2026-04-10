@@ -1,4 +1,3 @@
-import type { RollResult } from '../types';
 
 /*
 LatestResults component for the Roller page.
@@ -6,7 +5,7 @@ Displays the latest rolls and allows the user to clear the latest rolls.
 */
 
 export interface LatestResultsProps {
-  latestRolls: RollResult[];
+  latestRolls: string[];
 }
 
 export function LatestResults({ latestRolls }: LatestResultsProps) {

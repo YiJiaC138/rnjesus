@@ -2,15 +2,12 @@
 Counts how many rolls it will take to reach a target probability.
 
 */
-
-import { useState } from "react";
-import { Scorecounter } from "./Scorecounter";
 import { ProbabilitySlider } from "./Sliders/ProbabilitySlider";
 
 export interface CountControlsProps {
   probability: number;
   setProbability: (value: number) => void;
-  performRoll: () => number;
+  performRoll: () => void;
 }
 
 export function CountControls({ probability, setProbability, performRoll }: CountControlsProps) {

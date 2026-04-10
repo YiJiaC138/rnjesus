@@ -4,27 +4,30 @@ import { Controls } from '../components/Controls.tsx';
 import { LatestResults } from '../components/LatestResults.tsx';
 import { Scoreboard } from '../components/Scoreboard.tsx';
 import { HistorySidebar } from '../components/HistorySidebar.tsx';
-import type { RollResult, RollHistoryItem } from '../types';
+import type {RollHistoryItem, RollResult } from '../types';
 
 import { getRollValue } from '../components/untils/RollValue.tsx';
 
+
+
 export const Roller = () => {
-  const [probability, setProbability] = useState<number>(50)
+  const [probability, setProbability] = useState<number>(3)
   const [history, setHistory] = useState<RollHistoryItem[]>([])
-  const [latestRolls, setLatestRolls] = useState<RollResult[]>([])
+  const [latestRolls, setLatestRolls] = useState<string[]>([])
   
   // Perform rolls under a fixed number of times
   const performRoll = (times: number) => {
-    const newRolls: RollResult[] = [];
+    const newRolls: string[] = [];
     const newHistoryItems: RollHistoryItem[] = [];
 
     for (let i = 0; i < times; i++) {
       const rollValue = getRollValue();
-      const result: RollResult = rollValue < probability ? 'Good Roll' : 'Bad Roll';
+      const result: string = rollValue < probability ? 'Good Roll' : 'Bad Roll';
       newRolls.push(result);
       newHistoryItems.push({
         id: crypto.randomUUID(),
-        result,
+        result: getRollResult(rollValue),
+        value: result,
         rate: probability,
       });
     }
@@ -32,6 +35,11 @@ export const Roller = () => {
     setLatestRolls(newRolls);
     setHistory(prevHistory => [...newHistoryItems, ...prevHistory]);
   };
+
+  // Classify the roll result based on the roll value.
+  const getRollResult = (rollValue: number): RollResult => {
+    return rollValue < probability ? 'Good Roll' : 'Bad Roll';
+  }
 
   // Clear the history and reset everything
   const clearHistory = () => {

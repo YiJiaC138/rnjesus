@@ -1,3 +1,6 @@
+/*
+Slider to set the probabilities of multiple options.
+*/
 import { useState } from 'react';
 
 interface MultipleScrollerProps {
