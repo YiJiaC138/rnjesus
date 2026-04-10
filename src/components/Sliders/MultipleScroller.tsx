@@ -18,7 +18,7 @@ export function MultipleScroller({ probabilities, setProbabilities, labels }: Mu
     }
     setLockedIndices(newLocked);
   };
-
+  // Handle slider changes based on the index and the new value for that slider
   const handleSliderChange = (index: number, newValue: number) => {
     if (lockedIndices.has(index)) return;
 
@@ -46,9 +46,8 @@ export function MultipleScroller({ probabilities, setProbabilities, labels }: Mu
 
     if (otherIndices.length > 0) {
       let remainingDiff = diff;
-      
+      // If we increase the current slider, we decrease the others
       if (diff > 0) {
-        // Decreasing others
         otherIndices.forEach((idx, i) => {
           const proportion = otherSum > 0 ? probabilities[idx] / otherSum : 1 / otherIndices.length;
           const share = i === otherIndices.length - 1 ? remainingDiff : Math.round((diff * proportion) * 10) / 10;
@@ -56,8 +55,7 @@ export function MultipleScroller({ probabilities, setProbabilities, labels }: Mu
           newProbabilities[idx] = Math.round((probabilities[idx] - adjustment) * 10) / 10;
           remainingDiff -= adjustment;
         });
-      } else {
-        // Increasing others
+      } else { // If we decrease the current slider, we increase the others
         otherIndices.forEach((idx, i) => {
           const space = 100 - probabilities[idx];
           const proportion = otherSpace > 0 ? space / otherSpace : 1 / otherIndices.length;

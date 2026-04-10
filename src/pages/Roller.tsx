@@ -6,6 +6,8 @@ import { Scoreboard } from '../components/Scoreboard.tsx';
 import { HistorySidebar } from '../components/HistorySidebar.tsx';
 import type { RollResult, RollHistoryItem } from '../types';
 
+import { getRollValue } from '../components/untils/RollValue.tsx';
+
 export const Roller = () => {
   const [probability, setProbability] = useState<number>(50)
   const [history, setHistory] = useState<RollHistoryItem[]>([])
@@ -17,7 +19,7 @@ export const Roller = () => {
     const newHistoryItems: RollHistoryItem[] = [];
 
     for (let i = 0; i < times; i++) {
-      const rollValue = Math.floor(Math.random() * 100);
+      const rollValue = getRollValue();
       const result: RollResult = rollValue < probability ? 'Good Roll' : 'Bad Roll';
       newRolls.push(result);
       newHistoryItems.push({
