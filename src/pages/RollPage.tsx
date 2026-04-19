@@ -4,42 +4,38 @@ import { Controls } from '../components/Controls.tsx';
 import { LatestResults } from '../components/LatestResults.tsx';
 import { Scoreboard } from '../components/Scoreboard.tsx';
 import { HistorySidebar } from '../components/HistorySidebar.tsx';
-import type {RollHistoryItem, RollResult } from '../types';
+import type {RollHistoryItem } from '../types.ts';
 
-import { getRollValue } from '../components/untils/RollValue.tsx';
+import {performRoll } from '../components/untils/RollValue.tsx';
 
 
 
-export const Roller = () => {
+export const RollPage = () => {
   const [probability, setProbability] = useState<number>(3)
   const [history, setHistory] = useState<RollHistoryItem[]>([])
   const [latestRolls, setLatestRolls] = useState<string[]>([])
   
   // Perform rolls under a fixed number of times
-  const performRoll = (times: number) => {
+  const onClickRoll = (times: number) => {
     const newRolls: string[] = [];
     const newHistoryItems: RollHistoryItem[] = [];
 
-    for (let i = 0; i < times; i++) {
-      const rollValue = getRollValue();
-      const result: string = rollValue < probability ? 'Good Roll' : 'Bad Roll';
-      newRolls.push(result);
+    const rolls = performRoll(times, [probability, 100 - probability], ['Good Roll', 'Bad Roll']);
+    rolls.map((roll) => {
+      newRolls.push(roll);
       newHistoryItems.push({
         id: crypto.randomUUID(),
-        result: getRollResult(rollValue),
-        value: result,
+        result: roll,
+        value: roll,
         rate: probability,
       });
-    }
+    });
     // Update the latest rolls and history
     setLatestRolls(newRolls);
     setHistory(prevHistory => [...newHistoryItems, ...prevHistory]);
   };
 
-  // Classify the roll result based on the roll value.
-  const getRollResult = (rollValue: number): RollResult => {
-    return rollValue < probability ? 'Good Roll' : 'Bad Roll';
-  }
+  
 
   // Clear the history and reset everything
   const clearHistory = () => {
@@ -61,7 +57,7 @@ export const Roller = () => {
         <Controls 
           probability={probability} 
           setProbability={setProbability} 
-          performRoll={performRoll} 
+          performRoll={onClickRoll} 
         />
 
         <LatestResults latestRolls={latestRolls} />

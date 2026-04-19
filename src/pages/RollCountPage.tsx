@@ -1,34 +1,34 @@
 import { useState } from 'react';
 import { CountControls } from '../components/CountControls.tsx';
-import { getRollValue } from '../components/untils/RollValue.tsx';
+import { getRollValue,getRollResult } from '../components/untils/RollValue.tsx';
 import type { RollHistoryItem, RollResult } from '../types.ts';
 import { HistorySidebar } from '../components/HistorySidebar.tsx';
 
-export const RollCount = () => {
+export const RollCountPage = () => {
   const [probability, setProbability] = useState<number>(3);
   const [counter, setCounter] = useState<number>(0);
   const [historyCount, setHistoryCount] = useState<RollHistoryItem[]>([]);
 
-  const performRoll = () => {
+  const onClickRoll = () => {
   
     let count = 1;
     while (true) {
       if (probability <= 0 || probability >= 100) return;
-      const rollValue = getRollValue();
-      if (rollValue < probability) break;
+      const rollResult = getRollResult([probability, 100 - probability], ['Good Roll', 'Bad Roll']);
+      if (rollResult === 'Good Roll') break;
       count++;
     }
   
     setCounter(count);
     setHistoryCount(prevHistoryCount => [...prevHistoryCount, {
       id: crypto.randomUUID(),
-      result: getRollResult(count),
+      result: classifyRollResult(count),
       value: count.toString(),
       rate: probability,
     }]);
   };
   // Classify the roll result based on the count.
-  const getRollResult = (count: number): RollResult => {
+  const classifyRollResult = (count: number): RollResult => {
     return count > 300 ? 'Bad Roll' : count > 200 ? 'Neutral Roll' : count > 100 ? 'default' : 'Good Roll';
   }
 
@@ -44,7 +44,7 @@ export const RollCount = () => {
       </div>
         
       </div>
-      <CountControls probability={probability} setProbability={setProbability} performRoll={performRoll} />
+      <CountControls probability={probability} setProbability={setProbability} performRoll={onClickRoll} />
     </main>
     <HistorySidebar history={historyCount} clearHistory={() => setHistoryCount([])} />
     </div>
