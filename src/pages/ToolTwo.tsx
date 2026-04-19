@@ -38,8 +38,8 @@ export const ToolTwo = () => {
   return (
   <div className="app-container">
   <main className="main-content">
-    <h1>Tool Two</h1>
-    <p>This is a placeholder for Tool Two.</p>
+    <h1>Beta</h1>
+    <p>This is a placeholder for customised settings.</p>
     <MultiControl 
       probabilities={probabilities} 
     setProbabilities={setProbabilities} 

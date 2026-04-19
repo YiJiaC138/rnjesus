@@ -20,7 +20,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/roller" element={<RollPage />} />
             <Route path="/roll-count" element={<RollCountPage />} />
-            <Route path="/tool-2" element={<ToolTwo />} />
+            <Route path="/beta" element={<ToolTwo />} />
             <Route path="/settings" element={<Settings />} />
           </Routes>
         </div>
