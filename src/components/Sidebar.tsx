@@ -41,7 +41,7 @@ export const Sidebar = () => {
         </li>
         <li>
           <NavLink 
-            to="/tool-2" 
+            to="/beta" 
             className={({ isActive }) => isActive ? 'active' : ''}
           >
             Beta
