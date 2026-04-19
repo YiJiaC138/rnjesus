@@ -16,7 +16,15 @@ export function LatestResults({ latestRolls }: LatestResultsProps) {
       <h2>Latest Rolls</h2>
       <div className="rolls-grid">
         {latestRolls.map((roll, index) => (
-          <div key={index} className={`roll-card ${roll === 'Good Roll' ? 'good-roll' : 'bad-roll'}`}>
+          <div key={index} className=
+          {
+            // Classify the roll result based on the roll result type.
+
+            `roll-card ${
+              roll === 'Good Roll' ? 'good-roll' : 
+              roll === 'Bad Roll' ? 'bad-roll' : 
+              roll === 'Neutral Roll' ? 'neutral-roll' : 
+              'default-roll'}`}>
             {roll}
           </div>
         ))}
