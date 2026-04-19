@@ -1,4 +1,4 @@
-import type { RollHistoryItem, RollResult} from '../types';
+import type { RollHistoryItem} from '../types';
 
 /*
 HistorySidebar component for the Roller page.

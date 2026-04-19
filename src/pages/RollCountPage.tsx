@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { CountControls } from '../components/CountControls.tsx';
-import { getRollValue,getRollResult } from '../components/untils/RollValue.tsx';
+import { getRollResult } from '../components/untils/RollValue.tsx';
 import type { RollHistoryItem, RollResult } from '../types.ts';
 import { HistorySidebar } from '../components/HistorySidebar.tsx';
 
