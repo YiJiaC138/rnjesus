@@ -1,35 +1,58 @@
-import type { RollHistoryItem } from '../types';
+import type { RollHistoryItem, RollResult } from '../types';
 
 /*
 Scoreboard for the Roller page.
-Takes account for number of good and bad rolls and displays the percentage of good and bad rolls.
+Takes account for number of rolls for each result type and displays the percentage.
 */
 
 export interface ScoreboardProps {
   history: RollHistoryItem[];
+  results?: RollResult[];
 }
 
-export function Scoreboard({ history }: ScoreboardProps) {
+export function Scoreboard({ history, results = ['Good Roll', 'Bad Roll'] }: ScoreboardProps) {
   const totalRolls = history.length;
-  const goodRolls = history.filter(item => item.result === 'Good Roll').length;
-  const badRolls = totalRolls - goodRolls;
-  
-  const goodPercentage = totalRolls > 0 ? Math.round((goodRolls / totalRolls) * 100) : 0;
-  const badPercentage = totalRolls > 0 ? 100 - goodPercentage : 0;
+  // returns css class
+  const getStatClass = (result: RollResult) => {
+    switch (result) {
+      case 'Good Roll': return 'good-stat';
+      case 'Bad Roll': return 'bad-stat';
+      case 'Neutral Roll': return 'neutral-stat';
+      case 'default': return 'default-stat';
+      default: return 'default-stat';
+    }
+  };
+
+  const getRatioBarClass = (result: RollResult) => {
+    switch (result) {
+      case 'Good Roll': return 'ratio-bar-good';
+      case 'Bad Roll': return 'ratio-bar-bad';
+      case 'Neutral Roll': return 'ratio-bar-neutral';
+      case 'default': return 'ratio-bar-default';
+      default: return 'ratio-bar-default';
+    }
+  };
+
+  const getLabel = (result: RollResult) => {
+    return result === 'default' ? 'Default Rolls' : `${result}s`;
+  };
+
+  const stats = results.map(result => {
+    const count = history.filter(item => item.result === result).length;
+    const percentage = totalRolls > 0 ? Math.round((count / totalRolls) * 100) : 0;
+    return { result, count, percentage };
+  });
 
   return (
     <div className="scoreboard">
       <div className="scoreboard-stats">
-        <div className="stat-box good-stat">
-          <span className="stat-label">Good Rolls</span>
-          <span className="stat-value">{goodRolls}</span>
-          <span className="stat-percentage">{totalRolls > 0 ? `${goodPercentage}%` : '-'}</span>
-        </div>
-        <div className="stat-box bad-stat">
-          <span className="stat-label">Bad Rolls</span>
-          <span className="stat-value">{badRolls}</span>
-          <span className="stat-percentage">{totalRolls > 0 ? `${badPercentage}%` : '-'}</span>
-        </div>
+        {stats.map(({ result, count, percentage }) => (
+          <div key={result} className={`stat-box ${getStatClass(result)}`}>
+            <span className="stat-label">{getLabel(result)}</span>
+            <span className="stat-value">{count}</span>
+            <span className="stat-percentage">{totalRolls > 0 ? `${percentage}%` : '-'}</span>
+          </div>
+        ))}
         <div className="stat-box total-stat">
           <span className="stat-label">Total Rolls</span>
           <span className="stat-value">{totalRolls}</span>
@@ -39,8 +62,13 @@ export function Scoreboard({ history }: ScoreboardProps) {
       
       {totalRolls > 0 && (
         <div className="ratio-bar-container">
-          <div className="ratio-bar-good" style={{ width: `${goodPercentage}%` }}></div>
-          <div className="ratio-bar-bad" style={{ width: `${badPercentage}%` }}></div>
+          {stats.map(({ result, percentage }) => (
+            <div 
+              key={result} 
+              className={getRatioBarClass(result)} 
+              style={{ width: `${percentage}%` }}
+            ></div>
+          ))}
         </div>
       )}
     </div>

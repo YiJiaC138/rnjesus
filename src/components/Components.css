@@ -50,6 +50,14 @@
   color: #ef4444;
 }
 
+.neutral-stat .stat-value, .neutral-stat .stat-percentage {
+  color: #f59e0b;
+}
+
+.default-stat .stat-value, .default-stat .stat-percentage {
+  color: #6b7280;
+}
+
 .total-stat .stat-value {
   color: var(--accent);
 }
@@ -73,6 +81,18 @@
 .ratio-bar-bad {
   height: 100%;
   background-color: #ef4444;
+  transition: width 0.3s ease;
+}
+
+.ratio-bar-neutral {
+  height: 100%;
+  background-color: #f59e0b;
+  transition: width 0.3s ease;
+}
+
+.ratio-bar-default {
+  height: 100%;
+  background-color: #6b7280;
   transition: width 0.3s ease;
 }
 
@@ -303,3 +323,55 @@
   font-style: italic;
   margin-top: 32px;
 }
+
+/* Drop Zone Styles */
+.drop-zone {
+  border: 2px dashed #ccc;
+  background-color: transparent;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.drop-zone.dragging {
+  border-color: #007bff;
+  background-color: rgba(0, 123, 255, 0.1);
+}
+
+.drop-zone.has-preview {
+  border: none;
+}
+
+.image-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image-preview img {
+  width: 40%; /* Forces the image to take up the full width of the drop zone */
+  height: auto; /* Maintains aspect ratio */
+  max-height: 80vh; /* Optional: prevents it from being taller than 80% of the screen height */
+  border-radius: 2px;
+  object-fit: contain;
+}
+
+.image-preview button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background-color: var(--bg);
+  color: var(--text-h);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.image-preview button:hover {
+  background-color: var(--code-bg);
+}
+

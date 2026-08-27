@@ -36,9 +36,9 @@ function performRoll(times:number, probabilities:number[], RollsResults:RollResu
 
 /**
  * Generates a random integer between 0 (inclusive) and 100 (exclusive).
- * @returns {number} A random integer between 0 and 99.
+ * @returns {number} A random number between 0 and 99 to two decimal point.
  */
 const getRollValue = (): number => {
-  return Math.floor(Math.random() * 100);
+  return Math.round(Math.random() * 10000)/100;
 };
 export { getRollValue, getRollResult, performRoll };
