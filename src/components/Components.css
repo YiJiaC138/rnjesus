@@ -135,6 +135,26 @@
   gap: 24px;
 }
 
+.roller-variation {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.roller-variation label {
+  font-family: var(--heading);
+  font-weight: bold;
+}
+
+.roller-variation select {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--code-bg);
+  color: var(--text-h);
+  font: inherit;
+}
+
 .probability-display {
   display: flex;
   justify-content: space-between;

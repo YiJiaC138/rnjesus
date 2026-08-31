@@ -2,8 +2,8 @@ import { useState } from 'react';
 import type {DragEvent} from 'react';
 import '../components/Components.css';
 import { CountControls } from '../components/CountControls.tsx';
-import { getRollResult } from '../components/untils/RollValue.tsx';
-import type { RollHistoryItem, RollResult } from '../types.ts';
+import type { RollHistoryItem } from '../types.ts';
+import { classifyRollResult, rollUntilGood } from '../components/utils/RollActions.ts';
 import { HistorySidebar } from '../components/HistorySidebar.tsx';
 
 export const RollCountPage = () => {
@@ -16,13 +16,8 @@ export const RollCountPage = () => {
   
   const onClickRoll = () => {
   
-    let count = 1;
-    while (true) {
-      if (probability <= 0 || probability >= 100) return;
-      const rollResult = getRollResult([probability, 100 - probability], ['Good Roll', 'Bad Roll']);
-      if (rollResult === 'Good Roll') break;
-      count++;
-    }
+    const count = rollUntilGood(probability);
+    if (count === null) return;
   
     setCounter(count);
     setHistoryCount(prevHistoryCount => [...prevHistoryCount, {
@@ -32,11 +27,6 @@ export const RollCountPage = () => {
       rate: probability,
     }]);
   };
-  // Classify the roll result based on the count.
-  const classifyRollResult = (count: number): RollResult => {
-    return count > 300 ? 'Bad Roll' : count > 200 ? 'Neutral Roll' : count > 100 ? 'default' : 'Good Roll';
-  }
-
   const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     setIsDragging(true);
