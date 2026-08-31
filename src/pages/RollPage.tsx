@@ -6,35 +6,53 @@ import { Scoreboard } from '../components/Scoreboard.tsx';
 import { HistorySidebar } from '../components/HistorySidebar.tsx';
 import type { RollHistoryItem, RollResult } from '../types.ts';
 
-import { createRollBatch } from '../components/utils/RollActions.ts';
+import { createRollBatch, resolveGoodRollCoinFlip } from '../components/utils/RollActions.ts';
 
-type RollerVariation = 'simple' | 'standard' | 'focus';
+type RollerVariation = 'simple' | 'standard' | 'goodRollCheck' | 'focus';
 
 type RollerConfig = {
   label: string;
   probabilities: number[];
-  results: RollResult[];
-  labels: string[];
+  rollResults: RollResult[];
+  scoreboardResults: RollResult[];
+  sliderLabels: string[];
+  resultLabels: string[];
+  transformResult?: (result: RollResult) => RollResult;
 };
 
 const rollerConfigurations: Record<RollerVariation, RollerConfig> = {
   simple: {
     label: 'Simple (Two sliders)',
     probabilities: [50, 50],
-    results: ['Good Roll', 'Bad Roll'],
-    labels: ['Good Roll', 'Bad Roll'],
+    rollResults: ['Good Roll', 'Bad Roll'],
+    scoreboardResults: ['Good Roll', 'Bad Roll'],
+    sliderLabels: ['Good Roll', 'Bad Roll'],
+    resultLabels: ['Good Roll', 'Bad Roll'],
   },
   standard: {
     label: 'Standard (Three sliders)',
     probabilities: [33.3, 33.3, 33.4],
-    results: ['Good Roll', 'Bad Roll', 'Neutral Roll'],
-    labels: ['⭐⭐⭐', '⭐⭐', '⭐'],
+    rollResults: ['Good Roll', 'Bad Roll', 'Neutral Roll'],
+    scoreboardResults: ['Good Roll', 'Bad Roll', 'Neutral Roll'],
+    sliderLabels: ['⭐⭐⭐', '⭐⭐', '⭐'],
+    resultLabels: ['⭐⭐⭐', '⭐⭐', '⭐'],
+  },
+  goodRollCheck: {
+    label: 'Good Roll Check (Three sliders)',
+    probabilities: [33.3, 33.3, 33.4],
+    rollResults: ['Good Roll', 'Neutral Roll', 'default'],
+    scoreboardResults: ['Good Roll', 'Bad Roll', 'Neutral Roll', 'default'],
+    sliderLabels: ['Good / Bad Roll', 'Neutral Roll', 'Default Roll'],
+    resultLabels: ['Good Roll', 'Bad Roll', 'Neutral Roll', 'Default Roll'],
+    transformResult: resolveGoodRollCoinFlip,
   },
   focus: {
     label: 'Standard with Focus (Four sliders)',
     probabilities: [25, 25, 25, 25],
-    results: ['Good Roll', 'Bad Roll', 'Neutral Roll', 'default'],
-    labels: ['⭐⭐⭐⭐', '⭐⭐⭐', '⭐⭐', '⭐'],
+    rollResults: ['Good Roll', 'Bad Roll', 'Neutral Roll', 'default'],
+    scoreboardResults: ['Good Roll', 'Bad Roll', 'Neutral Roll', 'default'],
+    sliderLabels: ['⭐⭐⭐⭐', '⭐⭐⭐', '⭐⭐', '⭐'],
+    resultLabels: ['⭐⭐⭐⭐', '⭐⭐⭐', '⭐⭐', '⭐'],
   },
 };
 
@@ -51,8 +69,9 @@ export const RollPage = () => {
     const { rolls: newRolls, historyItems: newHistoryItems } = createRollBatch({
       times,
       probabilities,
-      results: activeConfiguration.results,
-      getValue: (result) => activeConfiguration.labels[activeConfiguration.results.indexOf(result)] ?? result,
+      results: activeConfiguration.rollResults,
+      transformResult: activeConfiguration.transformResult,
+      getValue: (result) => activeConfiguration.resultLabels[activeConfiguration.scoreboardResults.indexOf(result)] ?? result,
       getRate: () => probabilities.reduce((total, value) => total + value, 0),
     });
     // Update the latest rolls and history
@@ -82,7 +101,7 @@ export const RollPage = () => {
             <h1>RNJesus</h1>
             <p>Will you get a good roll?</p>
           </div>
-          <Scoreboard history={history} results={activeConfiguration.results} />
+          <Scoreboard history={history} results={activeConfiguration.scoreboardResults} />
         </div>
 
         <div className="roller-variation">
@@ -102,7 +121,7 @@ export const RollPage = () => {
           probabilities={probabilities}
           setProbabilities={setProbabilities}
           performRoll={onClickRoll}
-          labels={activeConfiguration.labels}
+          labels={activeConfiguration.sliderLabels}
         />
 
         <LatestResults latestRolls={latestRolls} />

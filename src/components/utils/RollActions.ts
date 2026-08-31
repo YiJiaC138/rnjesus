@@ -5,6 +5,7 @@ type RollBatchOptions = {
   times: number;
   probabilities: number[];
   results: RollResult[];
+  transformResult?: (result: RollResult) => RollResult;
   getValue: (result: RollResult) => string;
   getRate: (result: RollResult) => number;
 };
@@ -14,10 +15,13 @@ export const createRollBatch = ({
   times,
   probabilities,
   results,
+  transformResult,
   getValue,
   getRate,
 }: RollBatchOptions): { rolls: string[]; historyItems: RollHistoryItem[] } => {
-  const rolls = performRoll(times, probabilities, results);
+  const rolls = performRoll(times, probabilities, results).map(
+    (result) => transformResult ? transformResult(result) : result,
+  );
 
   return {
     rolls,
@@ -28,6 +32,13 @@ export const createRollBatch = ({
       rate: getRate(result),
     })),
   };
+};
+
+/** Turns a Good Roll into an equal-chance Good Roll or Bad Roll outcome. */
+export const resolveGoodRollCoinFlip = (result: RollResult): RollResult => {
+  if (result !== 'Good Roll') return result;
+
+  return Math.random() < 0.5 ? 'Good Roll' : 'Bad Roll';
 };
 
 /** Returns the number of attempts required to get a good roll, or null for an invalid rate. */
